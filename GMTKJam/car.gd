@@ -3,6 +3,7 @@ extends Area2D
 var speed = 0
 @export var speedOffset = 2;
 @export var rotationOffset = 1;
+signal honk
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,9 +37,19 @@ func _process(delta):
 	
 	# Rotation
 	if Input.is_action_pressed("left") && speed != 0:
-		rotation -= 2 * delta * rotationOffset
+		if speed > 0:
+			rotation -= 2 * delta * rotationOffset
+		else:
+			rotation += 2 * delta * rotationOffset
 	elif Input.is_action_pressed("right") && speed != 0:
-		rotation += 2 * delta * rotationOffset
+		if speed > 0:
+			rotation += 2 * delta * rotationOffset
+		else:
+			rotation -= 2 * delta * rotationOffset
+	
+	# Honking
+	if Input.is_action_just_pressed("honk"):
+		honk.emit()
 	
 	# Debug
 	print(speed)
