@@ -1,7 +1,7 @@
 extends Area2D
 
 var speed = 0
-@export var speedOffset = 2;
+@export var speedOffset = 2.5;
 @export var rotationOffset = 1;
 signal honk
 

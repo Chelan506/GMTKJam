@@ -1,13 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://d66plv6tan5u"]
 
+[ext_resource type="Texture2D" uid="uid://csyddu58w6mqu" path="res://Assets/map.png" id="1_2w3d8"]
 [ext_resource type="PackedScene" uid="uid://pkob2dcjnkfp" path="res://car.tscn" id="1_ol1d0"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_487xf"]
-
 [node name="Background" type="TextureRect"]
-offset_right = 1152.0
-offset_bottom = 672.0
-texture = SubResource("PlaceholderTexture2D_487xf")
+offset_left = -1333.0
+offset_top = 192.0
+offset_right = 5067.0
+offset_bottom = 6592.0
+texture = ExtResource("1_2w3d8")
 
 [node name="Car" parent="." instance=ExtResource("1_ol1d0")]
-position = Vector2(525, 289)
+position = Vector2(1913, 416)
