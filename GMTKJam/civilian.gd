@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 @export var movement_speed: float = 200
-@export var movement_target = Node2D.new()
 @export var navigation_agent = NavigationAgent2D.new()
 var randAnimOffset
 var rand = RandomNumberGenerator.new()
@@ -16,15 +15,20 @@ func _ready():
 	
 func actor_setup():
 	await get_tree().physics_frame
-	
-	set_movement_target(movement_target.global_position)
+	var desired_position = global_position
+	desired_position[0] += rand.randi_range(-150,150)
+	desired_position[1] += rand.randi_range(-150,150)
+	set_movement_target(desired_position)
 
 func set_movement_target(target_point: Vector2):
 	navigation_agent.target_position = target_point
 	
 func _physics_process(delta):
 	if navigation_agent.is_navigation_finished():
-		return
+		var desired_position = global_position
+		desired_position[0] += rand.randi_range(-150,150)
+		desired_position[1] += rand.randi_range(-150,150)
+		set_movement_target(desired_position)
 		
 	var current_agent_position: Vector2 = global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
