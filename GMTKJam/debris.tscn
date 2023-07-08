@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3vo6g3hefnyd"]
+[gd_scene load_steps=9 format=3 uid="uid://b3vo6g3hefnyd"]
 
 [ext_resource type="Texture2D" uid="uid://dpi63ahkqkx2f" path="res://Assets/debris.png" id="1_3dy21"]
 [ext_resource type="Script" path="res://debris.gd" id="1_mm81u"]
@@ -29,11 +29,13 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vld88"]
+radius = 344.856
+
 [node name="Debris" type="StaticBody2D"]
 scale = Vector2(0.424, 0.424)
 collision_layer = 0
 script = ExtResource("1_mm81u")
-metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8skxc")
@@ -55,4 +57,10 @@ volume_db = -4.685
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(91, 9, 80, 88, -93, 74, -75, 7, -19, -5, 19, -7, 52, -6)
 
+[node name="ExplosionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
+shape = SubResource("CircleShape2D_vld88")
+
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="body_entered" from="ExplosionArea" to="." method="_on_area_2d_body_entered"]

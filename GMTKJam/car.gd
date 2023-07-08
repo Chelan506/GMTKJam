@@ -10,7 +10,7 @@ func _ready():
 	pass # Replace with function body.
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	# Compute movement
 	if Input.is_action_pressed("accelerate"):
 		apply_central_force(engine.rotated(rotation))
@@ -28,9 +28,14 @@ func _process(delta):
 	if linear_velocity.x < -20 || linear_velocity.x > 20 || linear_velocity.y < -20 || linear_velocity.y > 20:
 		apply_torque(rotation_dir * torque)
 
+func _process(delta):
 	# Honking
 	if Input.is_action_just_pressed("honk"):
 		honk.emit()
+		$Horn.play()
+	if Input.is_action_just_released("honk"):
+		$Horn.stop()
+		
 	
 	# Debug
 	#print(speed)

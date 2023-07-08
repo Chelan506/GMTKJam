@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 @export var movement_speed: float = 200
-@export var movement_target: Node2D
-@export var navigation_agent: NavigationAgent2D
+@export var movement_target = Node2D.new()
+@export var navigation_agent = NavigationAgent2D.new()
 
 func _ready():
 	navigation_agent.path_desired_distance = 4.0
@@ -29,3 +29,6 @@ func _physics_process(delta):
 	new_velocity = new_velocity.normalized() * movement_speed
 	velocity = new_velocity
 	move_and_slide()
+	
+func test_function():
+	print("I am dead now")
