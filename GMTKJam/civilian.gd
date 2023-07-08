@@ -71,5 +71,5 @@ func test_function():
 	get_parent().deathCount += 1
 	$"../../HUD/DeathCountLabel".set_text("Death count: " + str(get_parent().deathCount))
 	
-func honked_at():
+func honked_at(carPos):
 	print("I have been honked at. How very rude. I think I will walk in the opposite direction now.")
