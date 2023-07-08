@@ -23,7 +23,7 @@ func set_movement_target(target_point: Vector2):
 	navigation_agent.target_position = target_point
 	
 func _physics_process(delta):
-	if navigation_agent.is_navigation_finished():
+	if navigation_agent.is_navigation_finished() || dead:
 		return
 		
 	var current_agent_position: Vector2 = global_position
@@ -58,6 +58,7 @@ func _process(delta):
 	
 func test_function():
 	dead = true
+	$CollisionShape2D.disabled = true # You can run over dead bodies
 	$Sprite2D.texture = load("res://Assets/littleguyidle.png")
 	rotation += 80 + rand.randi_range(0,20)
 	get_parent().deathCount += 1
