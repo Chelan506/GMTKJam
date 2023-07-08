@@ -4,11 +4,12 @@ var rand = RandomNumberGenerator.new()
 @export var DebrisScene : PackedScene
 @export var CivillianScene : PackedScene
 var i = 0
+var deathCount = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Spawn 50 civillians at random positions
-	for i in 50:
+	# Spawn 75 civillians at random positions
+	for i in 75:
 		$Path2D/DebrisPlacer.progress_ratio = rand.randf()
 		var newPerson = CivillianScene.instantiate()
 		newPerson.position = $Path2D/DebrisPlacer.position

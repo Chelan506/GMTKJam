@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var navigation_agent = NavigationAgent2D.new()
 var randAnimOffset
 var rand = RandomNumberGenerator.new()
+var dead = false
 
 func _ready():
 	navigation_agent.path_desired_distance = 4.0
@@ -36,26 +37,30 @@ func _physics_process(delta):
 func _process(delta):
 	# Do animation in a 8 frame cycle
 	# randAnimOffset so that not all civs are synced
-	match (Engine.get_process_frames() + randAnimOffset) % 8:
-		0:
-			position.y += 5
-		1:
-			pass
-		2:
-			position.y += 3
-		3:
-			pass
-		4:
-			position.y -= 3
-		5:
-			pass
-		6: 
-			position.y -= 5
-		7: 
-			pass
+	if !dead:
+		match (Engine.get_process_frames() + randAnimOffset) % 8:
+			0:
+				position.y += 5
+			1:
+				pass
+			2:
+				position.y += 3
+			3:
+				pass
+			4:
+				position.y -= 3
+			5:
+				pass
+			6: 
+				position.y -= 5
+			7: 
+				pass
 	
 func test_function():
-	print("I am dead now")
+	dead = true
+	rotation += 80 + rand.randi_range(0,20)
+	get_parent().deathCount += 1
+	$"../../HUD/DeathCountLabel".set_text("Death count: " + str(get_parent().deathCount))
 	
 func honked_at():
 	print("I have been honked at. How very rude. I think I will walk in the opposite direction now.")
