@@ -72,4 +72,9 @@ func test_function():
 	$"../../HUD/DeathCountLabel".set_text("Death count: " + str(get_parent().deathCount))
 	
 func honked_at(carPos):
+	var desired_position = global_position
+	desired_position[0] += [-1,1][int(carPos[0] < desired_position[0])]*rand.randi_range(150,600)
+	desired_position[1] += [-1,1][int(carPos[1] < desired_position[1])]*rand.randi_range(150,600)
+	set_movement_target(desired_position)
 	print("I have been honked at. How very rude. I think I will walk in the opposite direction now.")
+	

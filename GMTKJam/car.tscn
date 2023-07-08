@@ -47,4 +47,5 @@ stream = SubResource("AudioStreamMP3_xddsw")
 [node name="HornArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HornArea"]
+scale = Vector2(2.2, 2.2)
 shape = SubResource("CircleShape2D_hgr2v")

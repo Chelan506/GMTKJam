@@ -36,7 +36,7 @@ func _process(delta):
 		for i in get_parent().get_children():
 			if i.is_in_group("civillians") && $HornArea.overlaps_body(i):
 				print(i)
-				i.honked_at(position)
+				i.honked_at(global_position)
 	if Input.is_action_just_released("honk"):
 		$Horn.stop()
 		
