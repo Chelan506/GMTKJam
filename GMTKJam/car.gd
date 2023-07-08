@@ -31,9 +31,8 @@ func _process(delta):
 	# Honking
 	if Input.is_action_just_pressed("honk"): # Single-fire detection
 		$Horn.play()
-	if Input.is_action_pressed("honk"): # Continuous detection
+	if Input.is_action_pressed("honk") && Engine.get_process_frames() % 5 == 0: # Continuous detection, every 5 frames for efficiency
 		# Detect civs
-		# FIXME this seems inefficient, we don't really need to do the detection *every* frame
 		for i in get_parent().get_children():
 			if i.is_in_group("civillians") && $HornArea.overlaps_body(i):
 				print(i)

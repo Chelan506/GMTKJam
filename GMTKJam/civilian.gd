@@ -3,10 +3,13 @@ extends CharacterBody2D
 @export var movement_speed: float = 200
 @export var movement_target = Node2D.new()
 @export var navigation_agent = NavigationAgent2D.new()
+var randAnimOffset
+var rand = RandomNumberGenerator.new()
 
 func _ready():
 	navigation_agent.path_desired_distance = 4.0
 	navigation_agent.target_desired_distance = 4.0
+	randAnimOffset = rand.randi_range(0,4)
 	
 	call_deferred("actor_setup")
 	
@@ -29,6 +32,27 @@ func _physics_process(delta):
 	new_velocity = new_velocity.normalized() * movement_speed
 	velocity = new_velocity
 	move_and_slide()
+
+func _process(delta):
+	# Do animation in a 8 frame cycle
+	# randAnimOffset so that not all civs are synced
+	match (Engine.get_process_frames() + randAnimOffset) % 8:
+		0:
+			position.y += 5
+		1:
+			pass
+		2:
+			position.y += 3
+		3:
+			pass
+		4:
+			position.y -= 3
+		5:
+			pass
+		6: 
+			position.y -= 5
+		7: 
+			pass
 	
 func test_function():
 	print("I am dead now")
