@@ -30,6 +30,9 @@ func _physics_process(delta):
 		desired_position[1] += rand.randi_range(-150,150)
 		set_movement_target(desired_position)
 		
+	if dead:
+		return
+		
 	var current_agent_position: Vector2 = global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 	
@@ -62,6 +65,8 @@ func _process(delta):
 	
 func test_function():
 	dead = true
+	$CollisionShape2D.disabled = true # You can run over dead bodies
+	$Sprite2D.texture = load("res://Assets/littleguyidle.png")
 	rotation += 80 + rand.randi_range(0,20)
 	get_parent().deathCount += 1
 	$"../../HUD/DeathCountLabel".set_text("Death count: " + str(get_parent().deathCount))
