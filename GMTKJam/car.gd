@@ -3,7 +3,6 @@ extends RigidBody2D
 var engine = Vector2(0, -3000)
 var torque = 40000
 var rotation_dir
-signal honk
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,9 +29,15 @@ func _physics_process(delta):
 
 func _process(delta):
 	# Honking
-	if Input.is_action_just_pressed("honk"):
-		honk.emit()
+	if Input.is_action_just_pressed("honk"): # Single-fire detection
 		$Horn.play()
+	if Input.is_action_pressed("honk"): # Continuous detection
+		# Detect civs
+		# FIXME this seems inefficient, we don't really need to do the detection *every* frame
+		for i in get_parent().get_children():
+			if i.is_in_group("civillians") && $HornArea.overlaps_body(i):
+				print(i)
+				i.honked_at()
 	if Input.is_action_just_released("honk"):
 		$Horn.stop()
 		

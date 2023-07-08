@@ -32,3 +32,6 @@ func _physics_process(delta):
 	
 func test_function():
 	print("I am dead now")
+	
+func honked_at():
+	print("I have been honked at. How very rude. I think I will walk in the opposite direction now.")
