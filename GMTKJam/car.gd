@@ -1,58 +1,71 @@
-extends Area2D
+extends RigidBody2D
 
-var speed = 0
-@export var speedOffset = 2.5;
-@export var rotationOffset = 1;
+var engine = Vector2(0, -3000)
+var torque = 28000
+var rotation_dir
 signal honk
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Compute movement
-	var velocity = Vector2.UP.rotated(rotation) * speed
-	position += velocity * delta * speedOffset
-	
-	# Check for input
-	
-	# Acceleration and deceleration
 	if Input.is_action_pressed("accelerate"):
-		speed += 3 * lookupSpeedTable(speed)
-		if speed < 0: # We can accelerate much faster if we're braking
-			speed += 5
+		apply_central_force(engine.rotated(rotation))
 	elif Input.is_action_pressed("decelerate"):
-		speed -= 2 * lookupSpeedTable(speed)
-		if speed > 0: # We can decelerate much faster if we're braking
-			speed -= 5
-	else: # Neither accelerating nor decelerating, car will slow to halt
-		if speed > -1 && speed < 1: # Stop the car completely if we're moving very slow
-			speed = 0
-		if speed > 0:
-			speed -= 1
-		elif speed < 0:
-			speed += 1
+		apply_central_force(-engine.rotated(rotation))
 	
 	# Rotation
-	if Input.is_action_pressed("left") && speed != 0:
-		if speed > 0:
-			rotation -= 2 * delta * rotationOffset
-		else:
-			rotation += 2 * delta * rotationOffset
-	elif Input.is_action_pressed("right") && speed != 0:
-		if speed > 0:
-			rotation += 2 * delta * rotationOffset
-		else:
-			rotation -= 2 * delta * rotationOffset
+	rotation_dir = 0
+	if Input.is_action_pressed("left"):
+		rotation_dir = -1
+	elif Input.is_action_pressed("right"):
+		rotation_dir = 1
+	apply_torque(rotation_dir * torque)
+
 	
+	#linear_velocity = Vector2.UP.rotated(rotation) * speed
+	#position += velocity * delta * speedOffset
+	
+	
+	
+#	# Acceleration and deceleration
+#	if Input.is_action_pressed("accelerate"):
+#		speed += 3 * lookupSpeedTable(speed)
+#		if speed < 0: # We can accelerate much faster if we're braking
+#			speed += 5
+#	elif Input.is_action_pressed("decelerate"):
+#		speed -= 2 * lookupSpeedTable(speed)
+#		if speed > 0: # We can decelerate much faster if we're braking
+#			speed -= 5
+#	else: # Neither accelerating nor decelerating, car will slow to halt
+#		if speed > -1 && speed < 1: # Stop the car completely if we're moving very slow
+#			speed = 0
+#		if speed > 0:
+#			speed -= 1
+#		elif speed < 0:
+#			speed += 1
+#
+#	# Rotation
+#	if Input.is_action_pressed("left") && speed != 0:
+#		if speed > 0:
+#			rotation -= 2 * delta * rotationOffset
+#		else:
+#			rotation += 2 * delta * rotationOffset
+#	elif Input.is_action_pressed("right") && speed != 0:
+#		if speed > 0:
+#			rotation += 2 * delta * rotationOffset
+#		else:
+#			rotation -= 2 * delta * rotationOffset
+
 	# Honking
 	if Input.is_action_just_pressed("honk"):
 		honk.emit()
 	
 	# Debug
-	print(speed)
+	#print(speed)
 
 func lookupSpeedTable(val):
 	# Speed multiplier so that the car can't go too fast
