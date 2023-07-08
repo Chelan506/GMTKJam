@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3vo6g3hefnyd"]
+
+[ext_resource type="Texture2D" uid="uid://dpi63ahkqkx2f" path="res://Assets/debris.png" id="1_3dy21"]
+[ext_resource type="Script" path="res://debris.gd" id="1_mm81u"]
+[ext_resource type="Texture2D" uid="uid://csuykaj8r8bap" path="res://Assets/target1.png" id="2_ukkd2"]
+[ext_resource type="Texture2D" uid="uid://dgdvvqf4wse1s" path="res://Assets/target2.png" id="3_13mrk"]
+[ext_resource type="AudioStream" uid="uid://di68sja6ah23c" path="res://Assets/incoming-mortar-3-86033.mp3" id="5_gar3l"]
+[ext_resource type="AudioStream" uid="uid://ctt1hm8t0sfw5" path="res://Assets/explosion-6055.mp3" id="6_6h3o6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8skxc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3dy21")
+}],
+"loop": true,
+"name": &"debris",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ukkd2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_13mrk")
+}],
+"loop": true,
+"name": &"target",
+"speed": 3.0
+}]
+
+[node name="Debris" type="StaticBody2D"]
+scale = Vector2(0.424, 0.424)
+collision_layer = 0
+script = ExtResource("1_mm81u")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8skxc")
+animation = &"target"
+
+[node name="DebrisHitAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_gar3l")
+volume_db = -4.0
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 2.2
+one_shot = true
+autostart = true
+
+[node name="DebrisExplodeAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_6h3o6")
+volume_db = -4.685
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(91, 9, 80, 88, -93, 74, -75, 7, -19, -5, 19, -7, 52, -6)
+
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
