@@ -58,6 +58,7 @@ func _process(delta):
 	
 func test_function():
 	dead = true
+	$Sprite2D.texture = load("res://Assets/littleguyidle.png")
 	rotation += 80 + rand.randi_range(0,20)
 	get_parent().deathCount += 1
 	$"../../HUD/DeathCountLabel".set_text("Death count: " + str(get_parent().deathCount))
