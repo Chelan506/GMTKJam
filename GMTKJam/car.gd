@@ -52,16 +52,11 @@ func _on_collision_workaround_area_body_entered(body):
 	if body.is_in_group("civillians"): # Is the thing we hit a civillian
 		if linear_velocity.length() > 300 && !body.dead: # Did we hit it hard enough to kill it?
 			body.die()
-			
-	else: # If it isn't a civillian, it should be a wall or debris
-		if linear_velocity.length() > 300: # Did we hit it hard enough to damage us?
-			# FIXME this code doesn't work probably because the collision zeroes the velocity before this check happens
-			takeDamage()
-		else:
-			print("didn't hit wall hard enough")
 
 func takeDamage():
 	# Apply damage to health
+	print("received damage call")
+	
 	health -= 1
 	$"../../HUD/HealthLabel".set_text("Health: " + str(health))
 	
