@@ -34,17 +34,17 @@ func _process(delta):
 	if Input.is_action_just_pressed("honk"): # Single-fire detection
 		$Horn.play()
 	if Input.is_action_pressed("honk") && Engine.get_process_frames() % 5 == 0: # Continuous detection, every 5 frames for efficiency
-		detectCivs()
+		detectCivs(true)
 	if Input.is_action_just_released("honk"):
 		$Horn.stop()
 	
 	# Every few frames, check if a player has gotten close to a civ without honking. Move out of the way 
 	if Engine.get_process_frames() % 5 == 0:
-		detectCivs()
+		detectCivs(false)
 	
-func detectCivs():
+func detectCivs(honk):
 	for i in get_parent().get_children():
-		if i.is_in_group("civillians") && $CloseArea.overlaps_body(i):
+		if i.is_in_group("civillians") && [$CloseArea.overlaps_body(i), $HornArea.overlaps_body(i)][int(honk)]:
 			i.honked_at(global_position)
 
 # This function and associated Area2D shouldn't have to exist, but godot isn't playing nice today

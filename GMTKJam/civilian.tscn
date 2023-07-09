@@ -22,3 +22,4 @@ scale = Vector2(1.37717, 1.421)
 texture = ExtResource("2_h5alt")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
