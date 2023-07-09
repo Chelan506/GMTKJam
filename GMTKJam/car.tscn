@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://pkob2dcjnkfp"]
+[gd_scene load_steps=7 format=3 uid="uid://pkob2dcjnkfp"]
 
 [ext_resource type="Script" path="res://car.gd" id="1_7yik2"]
 [ext_resource type="Texture2D" uid="uid://do5cc2q5hkgkg" path="res://Assets/car.png" id="2_3kue5"]
@@ -12,6 +12,10 @@ data = PackedByteArray(255, 251, 144, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hgr2v"]
 radius = 146.031
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l8s3w"]
+radius = 80.0
+height = 258.0
 
 [node name="Car" type="RigidBody2D"]
 mass = 3.0
@@ -43,9 +47,15 @@ zoom = Vector2(0.6, 0.6)
 
 [node name="Horn" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMP3_xddsw")
+volume_db = -10.306
 
 [node name="HornArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HornArea"]
 scale = Vector2(2.2, 2.2)
 shape = SubResource("CircleShape2D_hgr2v")
+
+[node name="CloseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CloseArea"]
+shape = SubResource("CapsuleShape2D_l8s3w")

@@ -33,15 +33,15 @@ func _process(delta):
 	if Input.is_action_just_pressed("honk"): # Single-fire detection
 		$Horn.play()
 	if Input.is_action_pressed("honk") && Engine.get_process_frames() % 5 == 0: # Continuous detection, every 5 frames for efficiency
-		# Detect civs
-		for i in get_parent().get_children():
-			if i.is_in_group("civillians") && $HornArea.overlaps_body(i):
-				print(i)
-				i.honked_at(global_position)
+		detectCivs()
 	if Input.is_action_just_released("honk"):
 		$Horn.stop()
-		
 	
-	# Debug
-	#print(speed)
-
+	# Every few frames, check if a player has gotten close to a civ without honking. Move out of the way 
+	if Engine.get_process_frames() % 5 == 0:
+		detectCivs()
+	
+func detectCivs():
+	for i in get_parent().get_children():
+		if i.is_in_group("civillians") && $CloseArea.overlaps_body(i):
+			i.honked_at(global_position)

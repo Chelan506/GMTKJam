@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var movement_speed: float = 200
+@export var movement_speed: float = 100 # Setting this value low so that they can't easily outrun the battle
 @export var navigation_agent = NavigationAgent2D.new()
 var randAnimOffset
 var rand = RandomNumberGenerator.new()
@@ -73,8 +73,7 @@ func test_function():
 	
 func honked_at(carPos):
 	var desired_position = global_position
-	desired_position[0] += [-1,1][int(carPos[0] < desired_position[0])]*rand.randi_range(150,600)
-	desired_position[1] += [-1,1][int(carPos[1] < desired_position[1])]*rand.randi_range(150,600)
+	desired_position.x += [-1,1][int(carPos.x < desired_position.x)]*rand.randi_range(150,600)
+	desired_position.y += [-1,1][int(carPos.y < desired_position.y)]*rand.randi_range(150,600)
 	set_movement_target(desired_position)
-	print("I have been honked at. How very rude. I think I will walk in the opposite direction now.")
 	
