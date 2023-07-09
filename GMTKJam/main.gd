@@ -5,9 +5,18 @@ var rand = RandomNumberGenerator.new()
 @export var CivillianScene : PackedScene
 var i = 0
 var deathCount = 0;
+var gameStarted = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	pass
+
+func startGame():
+	# Start the game
+	gameStarted = true
+	$AudioStreamPlayer.play()
+	$DebrisTimer.start()
+	
 	# Spawn 75 civillians at random positions
 	for i in 75:
 		$Path2D/DebrisPlacer.progress_ratio = rand.randf()
@@ -17,7 +26,6 @@ func _ready():
 		newPerson.add_to_group("civillians")
 	
 	$Path2D/DebrisPlacer.progress_ratio = 0 # Set fight path back to start
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

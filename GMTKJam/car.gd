@@ -11,6 +11,9 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if !get_parent().gameStarted:
+		return
+	
 	# Rotation
 	rotation_dir = 0
 	if Input.is_action_pressed("left"):
@@ -30,6 +33,9 @@ func _physics_process(delta):
 		apply_torque(rotation_dir * torque)
 
 func _process(delta):
+	if !get_parent().gameStarted:
+		return
+	
 	# Honking
 	if Input.is_action_just_pressed("honk"): # Single-fire detection
 		$Horn.play()
