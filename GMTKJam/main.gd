@@ -32,3 +32,6 @@ func _on_debris_timer_timeout():
 	
 	# Randomly set the time to next debris
 	$DebrisTimer.wait_time = 4 + rand.randi_range(0,6)
+	
+func gameOver():
+	print("Oh no we lost")

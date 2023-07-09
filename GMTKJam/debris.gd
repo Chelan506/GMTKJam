@@ -19,3 +19,5 @@ func _on_hit_timer_timeout():
 	for i in get_parent().get_children():
 		if i.is_in_group("civillians") && $ExplosionArea.overlaps_body(i):
 			i.die()
+		elif i == $Car:
+			i.takeDamage()

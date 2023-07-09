@@ -3,6 +3,7 @@ extends RigidBody2D
 var engine = Vector2(0, -3000)
 var torque = 40000
 var rotation_dir
+var health = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,6 +51,20 @@ func detectCivs():
 func _on_collision_workaround_area_body_entered(body):
 	if body.is_in_group("civillians"): # Is the thing we hit a civillian
 		if linear_velocity.length() > 300 && !body.dead: # Did we hit it hard enough to kill it?
-			print(linear_velocity.length())
 			body.die()
-			body.get_node("CollisionShape2D").disabled = true # This shouldn't have to exist either?
+			
+	else: # If it isn't a civillian, it should be a wall or debris
+		if linear_velocity.length() > 300: # Did we hit it hard enough to damage us?
+			# FIXME this code doesn't work probably because the collision zeroes the velocity before this check happens
+			takeDamage()
+		else:
+			print("didn't hit wall hard enough")
+
+func takeDamage():
+	# Apply damage to health
+	health -= 1
+	$"../../HUD/HealthLabel".set_text("Health: " + str(health))
+	
+	if health == 0: # Are we dead now?
+		get_parent().gameOver()
+	
