@@ -45,3 +45,11 @@ func detectCivs():
 	for i in get_parent().get_children():
 		if i.is_in_group("civillians") && $CloseArea.overlaps_body(i):
 			i.honked_at(global_position)
+
+# This function and associated Area2D shouldn't have to exist, but godot isn't playing nice today
+func _on_collision_workaround_area_body_entered(body):
+	if body.is_in_group("civillians"): # Is the thing we hit a civillian
+		if linear_velocity.length() > 300 && !body.dead: # Did we hit it hard enough to kill it?
+			print(linear_velocity.length())
+			body.die()
+			body.get_node("CollisionShape2D").disabled = true # This shouldn't have to exist either?

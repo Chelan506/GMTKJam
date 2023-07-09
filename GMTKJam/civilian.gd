@@ -63,8 +63,9 @@ func _process(delta):
 			7: 
 				pass
 	
-func test_function():
+func die():
 	dead = true
+	collision_layer = 10
 	$CollisionShape2D.disabled = true # You can run over dead bodies
 	$Sprite2D.texture = load("res://Assets/littleguyidle.png")
 	rotation += 80 + rand.randi_range(0,20)
