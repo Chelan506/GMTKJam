@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://lpbgd251g7vi"]
+[gd_scene load_steps=5 format=3 uid="uid://lpbgd251g7vi"]
 
 [ext_resource type="Texture2D" uid="uid://bt56aqu254ja5" path="res://Assets/menuTexture.png" id="1_15qn2"]
 [ext_resource type="FontFile" uid="uid://cqjlv14wpif7d" path="res://Assets/chicago/ChicagoFLF.ttf" id="2_i8yte"]
 [ext_resource type="Script" path="res://menu.gd" id="2_qi6lc"]
+[ext_resource type="AudioStream" uid="uid://b2socl3nvsrj8" path="res://Assets/rain-and-thunder-nature-sounds-7803.mp3" id="4_0p00h"]
 
 [node name="MainMenu" type="TextureRect"]
 offset_right = 1152.0
@@ -59,4 +60,36 @@ theme_override_fonts/font = ExtResource("2_i8yte")
 theme_override_font_sizes/font_size = 30
 text = "How to play"
 
+[node name="HelpTextBackground" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 266.0
+offset_top = 185.0
+offset_right = 899.0
+offset_bottom = 502.0
+color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+
+[node name="Label" type="Label" parent="HelpTextBackground"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 11.0
+offset_right = 614.0
+offset_bottom = 305.0
+theme_override_fonts/font = ExtResource("2_i8yte")
+theme_override_font_sizes/font_size = 20
+text = "Main characters fight dramatically overhead. Drive around the city and protect civilians from getting flattened by debris!
+
+Use WASD or arrow keys to drive.
+
+Use space to honk your horn and drive civilians away.
+
+The red area tracks the fight overhead."
+autowrap_mode = 2
+
+[node name="MenuAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_0p00h")
+volume_db = -14.991
+autoplay = true
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="HelpButton" to="." method="_on_help_button_pressed"]

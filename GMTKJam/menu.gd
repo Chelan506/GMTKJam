@@ -13,4 +13,12 @@ func _process(delta):
 
 func _on_start_button_pressed():
 	visible = false
+	$MenuAmbience.stop()
 	$"../../Game".startGame()
+
+
+func _on_help_button_pressed():
+	if $HelpTextBackground.visible:
+		$HelpTextBackground.visible = false
+	else: 
+		$HelpTextBackground.visible = true
