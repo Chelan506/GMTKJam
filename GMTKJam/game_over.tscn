@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://oua3qn525irk"]
+
+[ext_resource type="Script" path="res://game_over.gd" id="1_b4a6i"]
+
+[node name="GameOver" type="ColorRect"]
+offset_right = 1161.0
+offset_bottom = 662.0
+color = Color(0.0627451, 0.0627451, 0.0627451, 1)
+script = ExtResource("1_b4a6i")
+
+[node name="Game Over" type="Label" parent="."]
+layout_mode = 0
+offset_left = 336.0
+offset_top = 157.0
+offset_right = 807.0
+offset_bottom = 284.0
+theme_override_font_sizes/font_size = 81
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="FinalScore" type="Label" parent="."]
+layout_mode = 0
+offset_left = 457.0
+offset_top = 301.0
+offset_right = 618.0
+offset_bottom = 373.0
+theme_override_font_sizes/font_size = 42
+text = "Deaths: "
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+visible = false
+top_level = true
+layout_mode = 0
+offset_left = 499.0
+offset_top = 535.0
+offset_right = 623.0
+offset_bottom = 612.0
+theme_override_font_sizes/font_size = 33
+text = "Restart"
+flat = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 498.0
+offset_top = 537.0
+offset_right = 626.0
+offset_bottom = 612.0
+color = Color(0.560784, 0.560784, 0.560784, 1)
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

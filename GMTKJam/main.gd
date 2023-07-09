@@ -22,6 +22,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Path2D/DebrisPlacer.progress += 2.5 # Move the fight over time
+	
+	# Condition for player to win once the path has made a full loop
+	if $Path2D/DebrisPlacer.progress_ratio > 0.9:
+		$"../GameOverCanvas/GameOver/Game Over".text = "You Win"
+		gameOver()
 
 # Every n seconds, spawn a new piece of falling debris. Pattern according to Path2D
 func _on_debris_timer_timeout():
@@ -35,3 +40,7 @@ func _on_debris_timer_timeout():
 	
 func gameOver():
 	print("Oh no we lost")
+	$AudioStreamPlayer.stop()
+	$DebrisTimer.stop()
+	$"../GameOverCanvas/GameOver".visible = true
+	$"../GameOverCanvas/GameOver".updateDeaths()
